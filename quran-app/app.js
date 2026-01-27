@@ -50,15 +50,23 @@ async function init() {
  */
 async function loadQuranData() {
   try {
-    // Try to load the complete Quran data (114 surahs, 6236 ayahs)
-    const response = await fetch('data/quran/hafs_smart_v8.json');
+    // Try to load the simple structured data first
+    let response = await fetch('data/quran/quran-simple.json');
+    if (response.ok) {
+      appState.quranData = await response.json();
+      console.log('Quran data loaded successfully from quran-simple.json');
+      return;
+    }
+    
+    // Fall back to the complete Quran data (114 surahs, 6236 ayahs)
+    response = await fetch('data/quran/hafs_smart_v8.json');
     if (response.ok) {
       const rawData = await response.json();
       // Transform array format to structured format
       appState.quranData = transformQuranData(rawData);
-      console.log('Quran data loaded successfully');
+      console.log('Quran data loaded successfully from hafs_smart_v8.json');
     } else {
-      console.warn('Could not load hafs_smart_v8.json');
+      console.warn('Could not load quran data files');
     }
   } catch (error) {
     console.warn('Quran data not found at expected path:', error.message);
