@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تطبيق القرآن الكريم</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; }
+    header { background: #1a472a; color: white; padding: 20px; text-align: center; }
+    header h1 { font-size: 28px; margin-bottom: 10px; }
+    .container { display: flex; margin: 20px; gap: 20px; }
+    .sidebar { width: 250px; background: white; border: 1px solid #ddd; border-radius: 5px; padding: 15px; }
+    .content { flex: 1; background: white; border: 1px solid #ddd; border-radius: 5px; padding: 20px; }
+    .surah-item { padding: 10px; margin: 5px 0; background: #f9f9f9; cursor: pointer; border-radius: 3px; }
+    .surah-item:hover { background: #e8f5e9; }
+    .verse { margin: 15px 0; padding: 10px; background: #f5f5f5; border-right: 4px solid #1a472a; border-radius: 3px; }
+    .verse-number { font-weight: bold; color: #1a472a; margin-left: 10px; }
+    .tafsir { margin-top: 10px; padding: 10px; background: #fffde7; border-radius: 3px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>القرآن الكريم</h1>
+    <p>الرسم العثماني</p>
+  </header>
+
+  <div class="container">
+    <div class="sidebar" id="sidebar">
+      <h3>السور</h3>
+      <div id="surahList"></div>
+    </div>
+
+    <div class="content">
+      <div id="versesContainer">
+        <p>اختر سورة لعرض الآيات</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // بيانات القرآن البسيطة
+    const quranData = {
+      1: {
+        name: "الفاتحة",
+        ayahs: {
+          1: "بسم الله الرحمن الرحيم",
+          2: "الحمد لله رب العالمين",
+          3: "الرحمن الرحيم",
+          4: "مالك يوم الدين",
+          5: "إياك نعبد وإياك نستعين",
+          6: "اهدنا الصراط المستقيم",
+          7: "صراط الذين أنعمت عليهم غير المغضوب عليهم ولا الضالين"
+        }
+      },
+      2: {
+        name: "البقرة",
+        ayahs: {
+          1: "الم",
+          2: "ذلك الكتاب لا ريب فيه هدى للمتقين",
+          3: "الذين يؤمنون بالغيب ويقيمون الصلاة ومما رزقناهم ينفقون",
+          4: "والذين يؤمنون بما أنزل إليك وما أنزل من قبلك وبالآخرة هم يوقنون",
+          5: "أولئك على هدى من ربهم وأولئك هم المفلحون"
+        }
+      },
+      3: {
+        name: "آل عمران",
+        ayahs: {
+          1: "الم",
+          2: "الله لا إله إلا هو الحي القيوم",
+          3: "نزل عليك الكتاب بالحق مصدقا لما بين يديه"
+        }
+      }
+    };
+
+    const tafsirData = {
+      1: {
+        1: "بسم الله الرحمن الرحيم: التسمية اسم مختصر من بسم، وتعني ابتداء الفعل باسم الله",
+        2: "الحمد لله رب العالمين: الحمد هو الثناء على الله بصفاته وأفعاله",
+        3: "الرحمن الرحيم: من أسماء الله الحسنى، يدل على الرحمة الواسعة"
+      },
+      2: {
+        1: "الم: من الحروف المقطعة في القرآن الكريم",
+        2: "ذلك الكتاب: القرآن الذي لا شك في أنه من عند الله"
+      }
+    };
+
+    // عرض قائمة السور
+    function showSurahs() {
+      const list = document.getElementById('surahList');
+      for (let surah in quranData) {
+        const div = document.createElement('div');
+        div.className = 'surah-item';
+        div.textContent = quranData[surah].name;
+        div.onclick = () => showVerses(surah);
+        list.appendChild(div);
+      }
+    }
+
+    // عرض الآيات
+    function showVerses(surahNum) {
+      const container = document.getElementById('versesContainer');
+      const surah = quranData[surahNum];
+      container.innerHTML = '<h2>' + surah.name + '</h2>';
+      
+      for (let aya in surah.ayahs) {
+        const div = document.createElement('div');
+        div.className = 'verse';
+        div.textContent = surah.ayahs[aya];
+        div.innerHTML += '<span class="verse-number">[' + aya + ']</span>';
+        div.style.cursor = 'pointer';
+        div.onclick = () => toggleTafsir(surahNum, aya, div);
+        container.appendChild(div);
+      }
+    }
+
+    // عرض/إخفاء التفسير
+    function toggleTafsir(surahNum, ayaNum, element) {
+      const tafsir = tafsirData[surahNum] && tafsirData[surahNum][ayaNum];
+      const existing = element.querySelector('.tafsir');
+      
+      if (existing) {
+        existing.remove();
+      } else if (tafsir) {
+        const div = document.createElement('div');
+        div.className = 'tafsir';
+        div.textContent = 'التفسير: ' + tafsir;
+        element.appendChild(div);
+      }
+    }
+
+    // بدء التطبيق
+    showSurahs();
+  </script>
+</body>
+</html>
