@@ -50,12 +50,15 @@ async function init() {
  */
 async function loadQuranData() {
   try {
-    const response = await fetch('data/quran/quran-hafs-usmani.json');
+    // Try to load the complete Quran data (114 surahs, 6236 ayahs)
+    const response = await fetch('data/quran/hafs_smart_v8.json');
     if (response.ok) {
-      appState.quranData = await response.json();
+      const rawData = await response.json();
+      // Transform array format to structured format
+      appState.quranData = transformQuranData(rawData);
       console.log('Quran data loaded successfully');
     } else {
-      console.warn('Could not load quran-hafs-usmani.json');
+      console.warn('Could not load hafs_smart_v8.json');
     }
   } catch (error) {
     console.warn('Quran data not found at expected path:', error.message);
@@ -63,16 +66,41 @@ async function loadQuranData() {
 }
 
 /**
+ * Transform Quran data from array format to structured format
+ */
+function transformQuranData(rawData) {
+  const structured = {};
+  
+  rawData.forEach(item => {
+    const surah = item.sura_no;
+    const ayah = item.aya_no;
+    
+    if (!structured[surah]) {
+      structured[surah] = {
+        name: item.sura_name_ar,
+        englishName: item.sura_name_en,
+        ayahs: {}
+      };
+    }
+    
+    structured[surah].ayahs[ayah] = item.aya_text_emlaey;
+  });
+  
+  return structured;
+}
+
+/**
  * Load Tafsir data from JSON file
  */
 async function loadTafsirData() {
   try {
-    const response = await fetch('data/tafsir/tafsir.json');
+    // Try to load the complete tafsir data
+    const response = await fetch('data/tafsir/tafsir_complete.json');
     if (response.ok) {
       appState.tafsirData = await response.json();
       console.log('Tafsir data loaded successfully');
     } else {
-      console.warn('Could not load tafsir.json');
+      console.warn('Could not load tafsir_complete.json');
     }
   } catch (error) {
     console.warn('Tafsir data not found at expected path:', error.message);
