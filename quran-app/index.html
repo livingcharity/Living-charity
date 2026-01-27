@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="تطبيق القرآن الكريم - مع التفسير وأسباب النزول" />
+  <title>تطبيق القرآن الكريم</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>القرآن الكريم</h1>
+      <p class="subtitle">الرسم العثماني</p>
+    </header>
+
+    <main>
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <h2>السور</h2>
+        </div>
+        <div class="surah-list" id="surahList">
+          <!-- Surahs will be populated here -->
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="verses-container" id="versesContainer">
+          <div class="empty-state">
+            <p>اختر سورة لعرض الآيات</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

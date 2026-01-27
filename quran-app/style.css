@@ -1,0 +1,434 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Traditional Arabic', 'Simplified Arabic', 'Arial', sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  line-height: 1.8;
+}
+
+/* Typography */
+h1, h2, h3 {
+  color: #1a472a;
+}
+
+p {
+  margin-bottom: 0.5rem;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #1a472a 0%, #2d6a47 100%);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Container Layout */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 0;
+  flex: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  background: white;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px);
+  position: sticky;
+  top: 0;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 2px solid #1a472a;
+  background: #f9f9f9;
+}
+
+.sidebar-header h2 {
+  font-size: 1.5rem;
+}
+
+.surah-list {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.surah-item {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.surah-item:hover {
+  background: #f5f5f5;
+  border-right: 4px solid #1a472a;
+  padding-right: calc(1.5rem - 4px);
+}
+
+.surah-item.active {
+  background: #e8f5e9;
+  border-right: 4px solid #1a472a;
+  padding-right: calc(1.5rem - 4px);
+  font-weight: bold;
+  color: #1a472a;
+}
+
+.surah-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.surah-info {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+/* Content Area */
+.content {
+  background: white;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+.verses-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+}
+
+/* Surah Header */
+.surah-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.surah-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.surah-header .meta {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Verse */
+.verse {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: white;
+}
+
+.verse:hover {
+  box-shadow: 0 2px 12px rgba(26, 71, 42, 0.1);
+  border-color: #1a472a;
+}
+
+.verse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.verse-number {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #1a472a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.verse-text {
+  font-size: 1.4rem;
+  line-height: 2;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+  text-align: right;
+  letter-spacing: 0.05em;
+  font-family: 'Traditional Arabic', 'Simplified Arabic', serif;
+}
+
+/* Tafsir and Asbab */
+.verse-details {
+  margin-top: 1rem;
+}
+
+.detail-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-right: 4px solid #1a472a;
+  border-radius: 4px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #1a472a;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  display: block;
+}
+
+.detail-content {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #333;
+  text-align: right;
+}
+
+.tafsir-section .detail-label::before {
+  content: "📖 ";
+}
+
+.asbab-section .detail-label::before {
+  content: "📜 ";
+}
+
+/* Loading and Error States */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error {
+  background: #ffebee;
+  border: 1px solid #ef5350;
+  color: #c62828;
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+
+  .verse {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .verse-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+
+  .surah-item {
+    padding: 0.8rem 1.5rem;
+  }
+
+  .surah-name {
+    font-size: 1rem;
+  }
+
+  .surah-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  header {
+    padding: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .verse {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+  }
+
+  .verse-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+  }
+
+  .verse-number {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .detail-section {
+    padding: 0.8rem;
+    margin-top: 1rem;
+    border-right-width: 3px;
+  }
+
+  .detail-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .detail-content {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .surah-item {
+    padding: 0.7rem 1rem;
+  }
+
+  .surah-name {
+    font-size: 0.95rem;
+  }
+
+  .surah-info {
+    font-size: 0.8rem;
+  }
+}
+
+/* Scrollbar Styling */
+.sidebar-list::-webkit-scrollbar,
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar,
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.content::-webkit-scrollbar-thumb {
+  background: #1a472a;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.content::-webkit-scrollbar-thumb:hover {
+  background: #0d3322;
+}
+
+/* Print Styles */
+@media print {
+  .sidebar,
+  header {
+    display: none;
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .verse {
+    page-break-inside: avoid;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 1rem;
+  }
+}
